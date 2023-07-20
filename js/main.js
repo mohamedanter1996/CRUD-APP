@@ -66,25 +66,31 @@ tableRaws.innerHTML=container;
 }
 
 function updateRaw(index){
-    userProductName.value=pruductList[index].productName;
-    userProductPrice.value=pruductList[index].productPrice;
-    userProductCategory.value=pruductList[index].productCategory;
-    userProductDescription.value=pruductList[index].productDescription;
-    document.getElementById("raw-"+index).setAttribute("style","background-color:red");
-    updateObject=true;
-    updateObjectIndex=index;
+    if(updateObject==false){  
+        userProductName.value=pruductList[index].productName;
+        userProductPrice.value=pruductList[index].productPrice;
+        userProductCategory.value=pruductList[index].productCategory;
+        userProductDescription.value=pruductList[index].productDescription;
+        document.getElementById("raw-"+index).setAttribute("style","background-color:red");
+        updateObject=true;
+        updateObjectIndex=index;
+    }
+
+        else{
+            alert("Please, finish this update first");
+        }
+  
 }
 
 
 function deleteRaw(index){
+ 
 pruductList.splice(index,1);
 addArrayListToTable(pruductList);
 }
 
 
 function addProductToTable(){
-  
-//    console.log(addProductObjectToArrayList(createProductObject(userProductName.value,userProductPrice.value,userProductCategory.value,userProductDescription.value)));
 
 addArrayListToTable(addProductObjectToArrayList(createProductObject(userProductName.value,userProductPrice.value,userProductCategory.value,userProductDescription.value)));
 clearProductDataFromFormInputsAfterAdditionToArrayList();
