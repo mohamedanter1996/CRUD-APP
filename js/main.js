@@ -3,9 +3,11 @@ var userProductPrice=document.getElementById("ProductPrice");
 var userProductCategory=document.getElementById("ProductCategory");
 var userProductDescription=document.getElementById("ProductDescription");
 var tableRaws=document.getElementById("tableBody");
+var productSearch=document.getElementById("ProductSearch");
 var pruductList=[];
 var updateObject=false;
 var updateObjectIndex;
+var modeOfSearch="searchByName";
 
 function createProductObject(name,price,category,description){
     var product={
@@ -84,8 +86,11 @@ function updateRaw(index){
 
 
 function deleteRaw(index){
- 
-pruductList.splice(index,1);
+    if(index==updateObjectIndex){
+        clearProductDataFromFormInputsAfterAdditionToArrayList();
+        updateObject=false;
+    }
+ pruductList.splice(index,1);
 addArrayListToTable(pruductList);
 }
 
@@ -94,4 +99,71 @@ function addProductToTable(){
 
 addArrayListToTable(addProductObjectToArrayList(createProductObject(userProductName.value,userProductPrice.value,userProductCategory.value,userProductDescription.value)));
 clearProductDataFromFormInputsAfterAdditionToArrayList();
+}
+
+
+
+function searchMode(mode){
+    if(mode=="searchByName"){
+        productSearch.removeAttribute("placeholder");
+        productSearch.setAttribute("placeholder","Search By Product Name....");
+        productSearch.value="";
+        addArrayListToTable(pruductList);
+        modeOfSearch=mode;
+    }
+    else if(mode=="searchByCategory"){
+        productSearch.removeAttribute("placeholder");
+        productSearch.setAttribute("placeholder","Search By Product Category....");
+        productSearch.value="";
+        addArrayListToTable(pruductList);
+        modeOfSearch=mode;
+    }
+
+    else{
+        mode=modeOfSearch;
+    }
+    
+}
+
+function searchForProduct(searchChar){
+    var container="";
+for(var i=0;i<pruductList.length;i++){
+    if(modeOfSearch=="searchByName"){
+        if(pruductList[i].productName.toLowerCase().includes(searchChar.toLowerCase())){
+            container+=` <tr id="raw-${i}">
+    <th scope="row">${i}</th>
+    <td>${pruductList[i].productName}</td>
+    <td>${pruductList[i].productPrice}</td>
+    <td>${pruductList[i].productCategory}</td>
+    <td>${pruductList[i].productDescription}</td>
+    <td><button class="btn btn-info" onclick="updateRaw(${i})">update</button></td>
+    <td><button class="btn btn-primary" onclick="deleteRaw(${i})">delete</button></td>
+  </tr>`
+        }
+    }
+    else{
+        if(pruductList[i].productCategory.toLowerCase().includes(searchChar.toLowerCase())){
+            container+=` <tr id="raw-${i}">
+    <th scope="row">${i}</th>
+    <td>${pruductList[i].productName}</td>
+    <td>${pruductList[i].productPrice}</td>
+    <td>${pruductList[i].productCategory}</td>
+    <td>${pruductList[i].productDescription}</td>
+    <td><button class="btn btn-info" onclick="updateRaw(${i})">update</button></td>
+    <td><button class="btn btn-primary" onclick="deleteRaw(${i})">delete</button></td>
+  </tr>`
+        }
+    }
+}
+tableRaws.innerHTML=container;
+}
+
+
+function reset(){
+    addArrayListToTable(pruductList);
+}
+
+function deleteAll(){
+    pruductList=[];
+    addArrayListToTable(pruductList);
 }

@@ -1,62 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="imgs/favicon_io/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="imgs/favicon_io/favicon-32x32.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Product Management System</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1 class="fw-bolder display-6 mx-auto text-start ">Product Management System</h1>
+      <h1 class="fw-bolder display-6 mx-auto text-start">
+        Product Management System
+      </h1>
 
-        <div class="mb-3">
-            <label for="ProductName" class="form-label fw-bold">Product Name:</label>
-            <input type="text" class="form-control" id="ProductName" placeholder="Please, insert Product Name">
-          </div>
+      <div class="mb-3">
+        <label for="ProductName" class="form-label fw-bold"
+          >Product Name:</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="ProductName"
+          placeholder="Please, insert Product Name"
+        />
+      </div>
 
-          <div class="mb-3">
-            <label for="ProductPrice" class="form-label fw-bold">Product Price:</label>
-            <input type="number" class="form-control" id="ProductPrice" placeholder="Please, insert Product Price">
-          </div>
+      <div class="mb-3">
+        <label for="ProductPrice" class="form-label fw-bold"
+          >Product Price:</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="ProductPrice"
+          placeholder="Please, insert Product Price"
+        />
+      </div>
 
-          <div class="mb-3">
-            <label for="ProductCategory" class="form-label fw-bold">Product Category:</label>
-            <input type="text" class="form-control" id="ProductCategory" placeholder="Please, insert Product Category">
-          </div>
+      <div class="mb-3">
+        <label for="ProductCategory" class="form-label fw-bold"
+          >Product Category:</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="ProductCategory"
+          placeholder="Please, insert Product Category"
+        />
+      </div>
 
-          <div class="mb-3">
-            <label for="ProductDescription" class="form-label fw-bold">Product Description:</label>
-            <textarea class="form-control" id="ProductDescription" rows="3" placeholder="Please, insert Product Description"></textarea>
-          </div>
+      <div class="mb-3">
+        <label for="ProductDescription" class="form-label fw-bold"
+          >Product Description:</label
+        >
+        <textarea
+          class="form-control"
+          id="ProductDescription"
+          rows="3"
+          placeholder="Please, insert Product Description"
+        ></textarea>
+      </div>
 
-          <BUtton onclick="addProductToTable()" class="btn btn-danger">Add Product</BUtton>
+      <button onclick="addProductToTable()" class="btn btn-danger">
+        Add Product
+      </button>
     </div>
-    
+    <div class="container mt-3">
+      <input
+        type="search"
+        onkeyup="searchForProduct(this.value)"
+        class="form-control"
+        id="ProductSearch"
+        placeholder="Search..."
+      />
+      <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
+          <button onclick="searchMode(this.id)" id="searchByName" class="btn btn-warning mt-2">
+            Search By Product Name
+          </button>
+          <button onclick="searchMode(this.id)" id="searchByCategory"  class="btn btn-success mt-2 ms-2">
+            Search By Product Category
+          </button>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button onclick="reset()" class="btn btn-secondary mt-2 me-2">Reset</button>
+          <button onclick="deleteAll()" class="btn btn-primary mt-2">Delete All</button>
+        </div>
+        
+      </div>
+    </div>
+
     <div class="container mt-5">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Index</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Product Price</th>
-                <th scope="col">Product Category</th>
-                <th scope="col">Product Description</th>
-                <th scope="col">Update</th>
-                <th scope="col">Delete</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              
-            </tbody>
-          </table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Index</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Product Category</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>  
-</body>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
