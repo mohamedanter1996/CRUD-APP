@@ -161,9 +161,11 @@ tableRaws.innerHTML=container;
 
 function reset(){
     addArrayListToTable(pruductList);
+    productSearch.value="";
 }
 
 function deleteAll(){
     pruductList=[];
     addArrayListToTable(pruductList);
+    productSearch.value="";
 }
