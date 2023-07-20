@@ -4,10 +4,18 @@ var userProductCategory=document.getElementById("ProductCategory");
 var userProductDescription=document.getElementById("ProductDescription");
 var tableRaws=document.getElementById("tableBody");
 var productSearch=document.getElementById("ProductSearch");
-var pruductList=[];
 var updateObject=false;
 var updateObjectIndex;
 var modeOfSearch="searchByName";
+var pruductList=[];
+if(JSON.parse(localStorage.getItem("array")).length>0){
+    pruductList=JSON.parse(localStorage.getItem("array"));
+    addArrayListToTable(pruductList);
+}
+else{
+    pruductList=[];
+}
+
 
 function createProductObject(name,price,category,description){
     var product={
@@ -21,7 +29,8 @@ function createProductObject(name,price,category,description){
 }
 
 function addProductObjectToArrayList(productObject){
-    if(updateObject==false){pruductList.push(productObject);
+    if(updateObject==false){
+        pruductList.push(productObject);
         return pruductList;
     }
 else{
@@ -38,6 +47,15 @@ else{
     document.getElementById("raw-"+updateObjectIndex).removeAttribute("style");
     return pruductList;
 }
+
+}
+
+function addArrayListToLocalSorage(arrayList){
+    
+    localStorage.setItem("array",JSON.stringify(arrayList));
+    var productListLocalStorage= JSON.parse(localStorage.getItem("array"));
+    console.log(productListLocalStorage);
+    return productListLocalStorage;
 
 }
 
@@ -91,13 +109,13 @@ function deleteRaw(index){
         updateObject=false;
     }
  pruductList.splice(index,1);
-addArrayListToTable(pruductList);
+addArrayListToTable(addArrayListToLocalSorage(pruductList));
 }
 
 
 function addProductToTable(){
 
-addArrayListToTable(addProductObjectToArrayList(createProductObject(userProductName.value,userProductPrice.value,userProductCategory.value,userProductDescription.value)));
+addArrayListToTable(addArrayListToLocalSorage(addProductObjectToArrayList(createProductObject(userProductName.value,userProductPrice.value,userProductCategory.value,userProductDescription.value))));
 clearProductDataFromFormInputsAfterAdditionToArrayList();
 }
 
@@ -160,12 +178,13 @@ tableRaws.innerHTML=container;
 
 
 function reset(){
-    addArrayListToTable(pruductList);
+    addArrayListToTable(addArrayListToLocalSorage(pruductList));
     productSearch.value="";
 }
 
 function deleteAll(){
     pruductList=[];
-    addArrayListToTable(pruductList);
+    localStorage.clear();
+    addArrayListToTable(addArrayListToLocalSorage(pruductList));
     productSearch.value="";
 }
