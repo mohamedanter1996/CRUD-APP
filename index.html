@@ -19,17 +19,19 @@
       <h1 class="fw-bolder display-6 mx-auto text-start">
         Product Management System
       </h1>
-
+    
       <div class="mb-3">
         <label for="ProductName" class="form-label fw-bold"
           >Product Name:</label
         >
         <input
+          oninput="validateProductName(this.value)"
           type="text"
           class="form-control"
           id="ProductName"
           placeholder="Please, insert Product Name"
         />
+        <p class="text-danger d-none" id="productNameValidRule">make sure the product name contains from 4 to 8 characters and the first character is capital.</p>
       </div>
 
       <div class="mb-3">
@@ -37,11 +39,13 @@
           >Product Price:</label
         >
         <input
+          oninput="validateProductPrice(this.value)"
           type="number"
           class="form-control"
           id="ProductPrice"
           placeholder="Please, insert Product Price"
         />
+        <p class="text-danger d-none" id="productPriceValidRule">make sure the product price from 1000 to 10000.</p>
       </div>
 
       <div class="mb-3">
@@ -49,11 +53,13 @@
           >Product Category:</label
         >
         <input
+          oninput="validateProductCategory(this.value)"
           type="text"
           class="form-control"
           id="ProductCategory"
           placeholder="Please, insert Product Category"
         />
+        <p class="text-danger d-none" id="productCategoryValidRule">make sure the product category <span class="fst-italic">Tv</span>  or <span class="fst-italic">Mobile</span>  or <span class="fst-italic">Laptop</span>.</p>
       </div>
 
       <div class="mb-3">
@@ -61,16 +67,27 @@
           >Product Description:</label
         >
         <textarea
+          oninput="validateProductDescription(this.value)"
           class="form-control"
           id="ProductDescription"
-          rows="3"
+          rows="5"
           placeholder="Please, insert Product Description"
         ></textarea>
+        <div class="d-flex justify-content-between"> 
+          <p class="text-danger opacity-0 text-start" id="productDescriptionValidRule">make sure the minimum characters accepted are more than 250 characters.</p>
+          <p class="text-end"><span id="characterCounter"></span>/250</p>
+        </div>
+        
       </div>
 
-      <button onclick="addProductToTable()" class="btn btn-danger">
+      <button onclick="addProductToTable()" class="btn btn-danger" id="addProduct">
         Add Product
       </button>
+
+      <button onclick="putUpdatedProductInTable()" class="btn btn-info d-none" id="updateProduct">
+        Update Product
+      </button>
+     
     </div>
     <div class="container mt-3">
       <input
@@ -113,7 +130,7 @@
         <tbody id="tableBody"></tbody>
       </table>
     </div>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
   </body>
