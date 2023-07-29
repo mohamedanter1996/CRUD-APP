@@ -69,17 +69,17 @@ function addArrayListToTable(arrayList) {
                 ? pruductList.indexOf(arrayList[i]) + 1
                 : i + 1
             }</th>
-    <td>${arrayList[i].newName ? arrayList[i].newName : arrayList[i].productName
+    <td>${arrayList[i].newName&&productSearch.value!=""? arrayList[i].newName : arrayList[i].productName
             }</td>
     <td>${arrayList[i].productPrice}</td>
-    <td>${arrayList[i].newCategory
+    <td>${arrayList[i].newCategory&&productSearch.value!=""
                 ? arrayList[i].newCategory
                 : arrayList[i].productCategory
             }</td>
     <td class=""> <p class="d-inline-block overflow-auto">${arrayList[i].productDescription}</p></td>
     <td><button class="btn btn-info" onclick="updateRaw(${productSearch.value.length > 0 ? pruductList.indexOf(arrayList[i]) : i
             })">update</button></td>
-    <td><button class="btn btn-primary" onclick="deleteRaw(${i})">delete</button></td>
+    <td><button class="btn btn-primary" onclick="deleteRaw(${productSearch.value.length > 0 ? pruductList.indexOf(arrayList[i]) : i})">delete</button></td>
   </tr>`;
     }
     tableRaws.innerHTML = container;
@@ -98,7 +98,6 @@ function updateRaw(index) {
             .setAttribute("style", "background-color:green");
         updateObject = true;
         updateObjectIndex = index;
-        console.log(updateObjectIndex);
     } else {
         sweetAlert("STOP", "finish this update first!", "warning");
     }
@@ -206,42 +205,49 @@ function searchMode(mode) {
 }
 
 function searchForProduct(searchChar) {
-    var searchArrray = [];
-    for (var i = 0; i < pruductList.length; i++) {
-        if (modeOfSearch == "searchByName") {
-            if (
-                pruductList[i].productName
-                    .toLowerCase()
-                    .includes(searchChar.toLowerCase())
-            ) {
-                searchArrray.push(pruductList[i]);
-
-                pruductList[i].newName = pruductList[i].productName
-                    .toLowerCase()
-                    .replace(
-                        searchChar.toLowerCase(),
-                        `<span class="text-danger">${searchChar.toLowerCase()}</span>`
-                    );
-            }
-        } else {
-            if (
-                pruductList[i].productCategory
-                    .toLowerCase()
-                    .includes(searchChar.toLowerCase())
-            ) {
-                pruductList[i].newCategory = pruductList[i].productCategory
-                    .toLowerCase()
-                    .replace(
-                        searchChar.toLowerCase(),
-                        `<span class="text-danger">${searchChar.toLowerCase()}</span>`
-                    );
-                searchArrray.push(pruductList[i]);
+    if(updateObject==false){
+        var searchArrray = [];
+        for (var i = 0; i < pruductList.length; i++) {
+            if (modeOfSearch == "searchByName") {
+                if (
+                    pruductList[i].productName
+                        .toLowerCase()
+                        .includes(searchChar.toLowerCase())
+                ) {
+                    searchArrray.push(pruductList[i]);
+    
+                    pruductList[i].newName = pruductList[i].productName
+                        .toLowerCase()
+                        .replace(
+                            searchChar.toLowerCase(),
+                            `<span class="text-danger">${searchChar.toLowerCase()}</span>`
+                        );
+                }
+            } else {
+                if (
+                    pruductList[i].productCategory
+                        .toLowerCase()
+                        .includes(searchChar.toLowerCase())
+                ) {
+                    pruductList[i].newCategory = pruductList[i].productCategory
+                        .toLowerCase()
+                        .replace(
+                            searchChar.toLowerCase(),
+                            `<span class="text-danger">${searchChar.toLowerCase()}</span>`
+                        );
+                    searchArrray.push(pruductList[i]);
+                }
             }
         }
+    
+    
+        addArrayListToTable(searchArrray);
+
     }
-
-
-    addArrayListToTable(searchArrray);
+    else{
+        sweetAlert("STOP", "finish this update first!", "warning");
+    }
+  
 }
 
 function reset() {
