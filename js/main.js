@@ -51,6 +51,12 @@ function clearProductDataFromFormInputsAfterAdditionToArrayList() {
     userProductPrice.value = "";
     userProductCategory.value = "";
     userProductDescription.value = "";
+    userProductName.classList.remove("input-valid");
+    userProductPrice.classList.remove("input-valid");
+    userProductCategory.classList.remove("input-valid");
+    userProductDescription.classList.remove("input-valid");
+    characterCounter.innerHTML="";
+    
 }
 
 function addArrayListToTable(arrayList) {
