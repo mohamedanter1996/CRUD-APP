@@ -324,7 +324,7 @@ function validateProductCategory(categoryValue){
 
         function validateProductDescription(descriptionValue){
             characterCounter.innerHTML=descriptionValue.length;
-            var regex=/^[a-zA-Z0-9.,]{250,}$/;
+            var regex=/^[a-zA-Z0-9.,\s]{250,}$/;
             if(regex.test(descriptionValue)){
                 userProductDescription.classList.add("input-valid");
                 userProductDescription.classList.remove("input-invalid");
